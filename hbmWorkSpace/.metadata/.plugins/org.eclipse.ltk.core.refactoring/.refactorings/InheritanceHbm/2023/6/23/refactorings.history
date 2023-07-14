@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;InheritanceHbm/src/main/java/com/ryas/hbmInheritance/UserDto.hbm.xml&apos; to &apos;Payment.hbm.xml&apos;" description="Rename resource &apos;UserDto.hbm.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/com/ryas/hbmInheritance/UserDto.hbm.xml" name="Payment.hbm.xml" stamp="1686025858324" updateReferences="true"/>
+</session>

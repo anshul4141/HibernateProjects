@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated May 27, 2023, 9:13:48 AM by Hibernate Tools 3.6.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true"
+	default-access="property" default-cascade="none" default-lazy="true">
+	<class dynamic-insert="false" dynamic-update="false"
+		mutable="true" name="com.rays.auction.AuctionItem"
+		optimistic-lock="version" polymorphism="implicit"
+		select-before-update="false" table="AUCTIONITEM">
+		<id name="id" type="long">
+			<column name="ID" />
+			<generator class="assigned" />
+		</id>
+
+		<property generated="never" lazy="false" name="description"
+			optimistic-lock="true" type="java.lang.String" unique="false">
+			<column name="DESCRIPTION" />
+		</property>
+		<set name="bids" cascade="all" lazy="true">
+			<key column="ITEM_ID">
+			</key>
+			<one-to-many class="com.rays.auction.Bid" />
+		</set>
+	</class>
+</hibernate-mapping>

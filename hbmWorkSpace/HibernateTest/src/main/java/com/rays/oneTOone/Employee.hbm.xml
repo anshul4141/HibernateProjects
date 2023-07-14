@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated May 30, 2023, 12:49:46 PM by Hibernate Tools 3.6.2.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true"
+	default-access="property" default-cascade="none" default-lazy="true">
+	<class dynamic-insert="false" dynamic-update="false"
+		mutable="true" name="com.rays.oneTOone.Employee"
+		optimistic-lock="version" polymorphism="implicit"
+		select-before-update="false" table="EMPLOYEE">
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="assigned" />
+		</id>
+		<property generated="never" lazy="false" name="firstName"
+			optimistic-lock="true" type="java.lang.String" unique="false">
+			<column name="FIRSTNAME" />
+		</property>
+		<property generated="never" lazy="false" name="lastName"
+			optimistic-lock="true" type="java.lang.String" unique="false">
+			<column name="LASTNAME" />
+		</property>
+		<one-to-one name="empAddress" cascade="all"
+			class="com.rays.oneTOone.Address"></one-to-one>
+	</class>
+</hibernate-mapping>
