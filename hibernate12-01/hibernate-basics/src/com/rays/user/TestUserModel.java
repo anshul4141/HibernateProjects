@@ -1,13 +1,40 @@
 package com.rays.user;
 
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
 
 public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
 //		testAdd();
 //		testFindByLogin();
-		testAuthenticate();
+//		testAuthenticate();
+		testSearch();
+	}
+
+	private static void testSearch() {
+
+		UserModel model = new UserModel();
+		UserDTO dto = new UserDTO();
+
+		dto.setFirstName("r");
+		
+		List<UserDTO> list = model.search(dto, 1, 10);
+
+		Iterator<UserDTO> it = list.iterator();
+
+		while (it.hasNext()) {
+			dto = it.next();
+			System.out.print(dto.getId());
+			System.out.print("\t" + dto.getFirstName());
+			System.out.print("\t" + dto.getLastName());
+			System.out.print("\t" + dto.getLoginId());
+			System.out.print("\t" + dto.getPassword());
+			System.out.print("\t" + dto.getDob());
+			System.out.println("\t" + dto.getAddress());
+		}
+
 	}
 
 	private static void testAuthenticate() {
