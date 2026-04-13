@@ -12,13 +12,7 @@ import org.hibernate.criterion.Restrictions;
 
 public class UserModel {
 
-	public int add(UserDTO dto) throws Exception {
-
-		UserDTO existDto = findByLogin(dto.getLoginId());
-
-		if (existDto != null) {
-			throw new Exception("loginId already exists");
-		}
+	public void add(UserDTO dto) {
 
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
@@ -30,17 +24,10 @@ public class UserModel {
 
 		tx.commit();
 
-		return dto.getId();
-
+		session.close();
 	}
 
-	public void update(UserDTO dto) throws Exception {
-
-		UserDTO existDto = findByLogin(dto.getLoginId());
-
-		if (existDto != null && existDto.getId() != dto.getId()) {
-			throw new Exception("loginId already exists");
-		}
+	public void update(UserDTO dto) {
 
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
@@ -52,9 +39,10 @@ public class UserModel {
 
 		tx.commit();
 
+		session.close();
 	}
 
-	public void delete(UserDTO dto) throws Exception {
+	public void delete(UserDTO dto) {
 
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
@@ -62,62 +50,27 @@ public class UserModel {
 
 		Transaction tx = session.beginTransaction();
 
-		session.delete(dto.getId());
+		session.delete(dto);
 
 		tx.commit();
 
+		session.close();
 	}
 
-	public UserDTO findByLogin(String login) {
-
-		UserDTO dto = null;
+	public UserDTO findByPk(int pk) {
 
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
 		Session session = sf.openSession();
 
-		Criteria criteria = session.createCriteria(UserDTO.class);
+		UserDTO dto = (UserDTO) session.get(UserDTO.class, 1);
 
-		criteria.add(Restrictions.eq("loginId", login));
-
-		List<UserDTO> list = criteria.list();
-
-		if (list.size() == 1) {
-			dto = new UserDTO();
-			dto = list.get(0);
-		}
+		session.close();
 
 		return dto;
-
 	}
 
 	public UserDTO authenticate(String login, String password) {
-
-		UserDTO dto = null;
-
-		SessionFactory sf = new Configuration().configure().buildSessionFactory();
-
-		Session session = sf.openSession();
-
-		Criteria criteria = session.createCriteria(UserDTO.class);
-
-		criteria.add(Restrictions.eq("loginId", login));
-		criteria.add(Restrictions.eq("password", password));
-
-		List<UserDTO> list = criteria.list();
-
-		if (list.size() == 1) {
-			dto = new UserDTO();
-			dto = list.get(0);
-		}
-
-		return dto;
-
-	}
-
-	public UserDTO authenticate1(String login, String password) {
-
-		UserDTO dto = null;
 
 		SessionFactory sf = new Configuration().configure().buildSessionFactory();
 
@@ -128,15 +81,17 @@ public class UserModel {
 		q.setString(0, login);
 		q.setString(1, password);
 
-		List<UserDTO> list = q.list();
+		List list = q.list();
+
+		UserDTO dto = null;
 
 		if (list.size() == 1) {
-			dto = new UserDTO();
-			dto = list.get(0);
+
+			dto = (UserDTO) list.get(0);
+
 		}
-
+		session.close();
 		return dto;
-
 	}
 
 	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
@@ -158,6 +113,7 @@ public class UserModel {
 			if (dto.getLastName() != null && dto.getLastName().length() > 0) {
 				criteria.add(Restrictions.like("lastName", dto.getLastName() + "%"));
 			}
+			// and loginId = 'xyz'
 			if (dto.getLoginId() != null && dto.getLoginId().length() > 0) {
 				criteria.add(Restrictions.eq("loginId", dto.getLoginId()));
 			}
@@ -175,8 +131,11 @@ public class UserModel {
 
 		list = criteria.list();
 
+		if (list.size() == 0) {
+			return null;
+		}
+
 		return list;
 
 	}
-
 }

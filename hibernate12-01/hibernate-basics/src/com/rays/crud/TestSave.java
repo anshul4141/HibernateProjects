@@ -14,9 +14,10 @@ public class TestSave {
 	public static void main(String[] args) {
 
 		UserDTO dto = new UserDTO();
-		dto.setFirstName("Ram");
-		dto.setLastName("Sharma");
-		dto.setLoginId("ram@gmail.com");
+		//dto.setId(2);
+		dto.setFirstName("abc");
+		dto.setLastName("abc");
+		dto.setLoginId("abc@gmail.com");
 		dto.setPassword("123");
 		dto.setDob(new Date());
 		dto.setAddress("indore");
@@ -25,9 +26,9 @@ public class TestSave {
 
 		Session session = sf.openSession();
 
-		Transaction tx = session.beginTransaction(); // transaction start
+		Transaction tx = session.beginTransaction();
 
-		session.save(dto); // save method run insert query
+		session.save(dto);
 
 		tx.commit();
 

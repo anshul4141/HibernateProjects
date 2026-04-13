@@ -3,21 +3,21 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory> <!-- hibernate session factory also known as DCP and session factory is a 
-			sub root tag -->
+	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 		<property name="hibernate.connection.password">root</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_basics</property>
 		<property name="hibernate.connection.username">root</property>
-
-		<!-- MySQLDialect convert hibernate query to native query -->
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property> <!-- this is very important -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<property name="hbm2ddl.auto">update</property>
 		<property name="show_sql">true</property>
-		<property name="format_sql">true</property>
+
+	<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+	<property name="hibernate.cache.use_second_level_cache">true</property>
+	<property name="hibernate.cache.use_query_cache">true</property>
 
 		<mapping resource="com/rays/user/UserDTO.hbm.xml" />
-
+		
 	</session-factory>
 </hibernate-configuration>

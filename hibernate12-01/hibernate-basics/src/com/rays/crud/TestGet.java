@@ -14,7 +14,7 @@ public class TestGet {
 
 		Session session = sf.openSession();
 
-		UserDTO dto = (UserDTO) session.get(UserDTO.class, 2);
+		UserDTO dto = (UserDTO) session.get(UserDTO.class, 1);
 
 		System.out.print(dto.getId());
 		System.out.print("\t" + dto.getFirstName());
