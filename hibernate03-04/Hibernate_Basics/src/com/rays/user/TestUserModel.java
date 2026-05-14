@@ -1,12 +1,37 @@
 package com.rays.user;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
-		testAdd();
+//		testAdd();
 //		testFindByLogin();
+		testSearch();
+	}
+
+	private static void testSearch() {
+
+		UserDTO dto = new UserDTO();
+		UserModel model = new UserModel();
+		// dto.setFirstName("Ram");
+		List<UserDTO> list = model.search(dto, 2, 2);
+
+		Iterator<UserDTO> it = list.iterator();
+
+		while (it.hasNext()) {
+			dto = it.next();
+			System.out.print(dto.getId());
+			System.out.print("\t" + dto.getFirstName());
+			System.out.print("\t" + dto.getLastName());
+			System.out.print("\t" + dto.getLoginId());
+			System.out.print("\t" + dto.getPassword());
+			System.out.print("\t" + dto.getDob());
+			System.out.println("\t" + dto.getAddress());
+		}
+
 	}
 
 	private static void testFindByLogin() {
