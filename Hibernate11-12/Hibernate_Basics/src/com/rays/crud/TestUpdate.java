@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 
 import com.rays.dto.UserDTO;
 
-public class TestInsert {
+public class TestUpdate {
 
 	public static void main(String[] args) {
 
@@ -19,18 +19,16 @@ public class TestInsert {
 
 		UserDTO dto = new UserDTO();
 
+		dto.setId(1);
 		dto.setFirstName("Ram");
-		dto.setLastName("Sharma");
+		dto.setLastName("Yadav");
 		dto.setLogin("ram@gmail.com");
 		dto.setPassword("ram123");
 
-		session.save(dto);
+		session.update(dto);
 
 		tx.commit();
 
 	}
 
 }
-
-// SessionFactory.openSession(); = always create new session and transaction handling is optional
-// SessionFactory.currentSession(); = continue existing session if session not exist it will create new session and currentSession bond with transaction
